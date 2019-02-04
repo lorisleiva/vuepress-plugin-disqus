@@ -24,16 +24,20 @@ Note that Vuepress allows multiple syntaxes to register plugins. See [Vuepress d
 ## Use the Disqus component
 
 ```html
-<Disqus shortname="my-website-shortname" />
+<ClientOnly>
+    <Disqus shortname="my-website-shortname" />
+</ClientOnly>
 ```
+
+It is important to wrap the `Disqus` component between the `ClientOnly` component (natively provided by vuepress) otherwise `npm run build` will fail. This is because the `Disqus` component cannot be precompiled by the server and should only live on the client side.
 
 You can use all the props and events defined by [vue-disqus](https://github.com/ktquez/vue-disqus).
 
 Prop            | Data Type  | required  | Description
 --------------- | ---------- | --------- | -----------
-`shortname`     | String     | true      | Your shortname disqus.
-`title`         | String     | false     | Title to identify current page.
-`identifier`    | String     | false     | Your unique identifier
+`shortname`     | String     | true      | Your disqus shortname.
+`title`         | String     | false     | Title that identifies the current page.
+`identifier`    | String     | false     | The page's unique identifier
 `sso_config`    | Object     | false     | Single sign-on (SSO)
 `api_key`       | String     | false     | Your API key disqus
 `remote_auth_s3`| String     | false     | implementation with Laravel/PHP
