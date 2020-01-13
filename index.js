@@ -1,11 +1,11 @@
-module.exports = (options) => ({
-    enhanceAppFiles () {
-        let name = options.name || 'Disqus'
-        let component = `() => import('vue-disqus/src/vue-disqus.vue')`
+const path = require('path')
 
-        return {
-            name: 'disqus-component-registration',
-            content: `export default ({ Vue }) => { Vue.component('${name}', ${component}) }`
-        }
-    }
+module.exports = (options) => ({
+  name: "disqus",
+
+  enhanceAppFiles: [path.resolve(__dirname, "enhanceAppFile.js")],
+
+  define: {
+    DISQUS_OPTIONS: JSON.stringify(options)
+  }
 })
